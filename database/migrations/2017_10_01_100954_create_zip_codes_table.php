@@ -15,7 +15,11 @@ class CreateZipCodesTable extends Migration
     {
         Schema::create('zip_codes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('village_id')->unsigned();
+            $table->string('code');
             $table->timestamps();
+
+            $table->foreign('village_id')->references('id')->on('villages')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
