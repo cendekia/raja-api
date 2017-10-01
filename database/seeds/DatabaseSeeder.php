@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(LocationRaw::class);
+        $this->call(ProvinceSeeder::class);
+        $this->call(CitySeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(VillageSeeder::class);
+        $this->call(ZipCodeSeeder::class);
+        $this->call(DapilMapingSeeder::class);
     }
 }
