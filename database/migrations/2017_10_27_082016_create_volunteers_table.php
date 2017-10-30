@@ -17,7 +17,7 @@ class CreateVolunteersTable extends Migration
             $table->increments('id');
             $table->integer('village_id')->unsigned();
             $table->string('name');
-            $table->string('date_of_birth');
+            $table->date('date_of_birth');
             $table->text('address');
             $table->string('id_card');
             $table->string('phone_number');

@@ -16,4 +16,5 @@ Route::post('register', 'API\UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
 	Route::get('details', 'API\UserController@details');
+	Route::resource('volunteer-register', 'API\VolunteerRegisterController');
 });
