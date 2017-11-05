@@ -15,7 +15,8 @@ class VillageTransformer extends TransformerAbstract
     public function transform(Village $village)
     {
         return [
-            $village->id => $village->name
+            'id' => $village->id,
+            'name' => $village->name
         ];
     }
 }

@@ -18,7 +18,10 @@ class DapilTransformer extends TransformerAbstract
         $villages = $dapil->villages;
 
         $districts = $villages->mapWithKeys(function ($item, $key) {
-            return [$key => [$item['district']->id => $item['district']->name]];
+            return [$key => [
+                'id' => $item['district']->id,
+                'name' => $item['district']->name
+            ]];
         });
 
         $unique = $districts->unique(function ($item) {
@@ -27,7 +30,8 @@ class DapilTransformer extends TransformerAbstract
 
 
         return [
-            $dapil->id => $dapil->name,
+            'id' => $dapil->id,
+            'name' => $dapil->name,
             'villages' => current(fractal($dapil->villages, new VillageTransformer())->toArray()),
             'districts' => $unique->values()
         ];
