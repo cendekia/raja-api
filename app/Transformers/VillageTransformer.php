@@ -16,7 +16,9 @@ class VillageTransformer extends TransformerAbstract
     {
         return [
             'id' => $village->id,
-            'name' => $village->name
-        ];
+            'name' => $village->name,
+            'dapil_id' => $village->dapil['dapil_id'],
+            'district_id' => $village->district->id
+        ];    
     }
 }

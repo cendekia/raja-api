@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dapil;
-use App\Transformers\DapilTransformer;
+use App\Models\Village;
+use App\Transformers\VillageTransformer;
 use Illuminate\Http\Request;
 
-class DapilController extends Controller
+class VillageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,11 @@ class DapilController extends Controller
      */
     public function index()
     {
-        $dapils = Dapil::with('villages.district')->get();
+        $villages = Village::whereHas('district', function($query) {
+            $query->bogorOnly();
+        })->get();
 
-        return $this->respondFormatter(fractal($dapils, new DapilTransformer())->toArray()); 
+        return $this->respondFormatter(fractal($villages, new VillageTransformer())->toArray()); 
     }
 
     /**

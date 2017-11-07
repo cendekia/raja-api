@@ -10,4 +10,9 @@ class District extends Model
     {
     	return $this->belongsTo(\App\Models\City::class);
     }
+
+    public function scopeBogorOnly($query)
+    {
+    	return $query->where('city_id', '=', 64);
+    }
 }

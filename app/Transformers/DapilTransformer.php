@@ -28,12 +28,11 @@ class DapilTransformer extends TransformerAbstract
             return $item;
         });
 
-
         return [
             'id' => $dapil->id,
             'name' => $dapil->name,
-            'villages' => current(fractal($dapil->villages, new VillageTransformer())->toArray()),
-            'districts' => $unique->values()
+            'villages' => collect(current(fractal($dapil->villages, new VillageTransformer())->toArray()))->pluck('name', 'id'),
+            'districts' => collect($unique->values())->pluck('name', 'id')
         ];
     }
 }

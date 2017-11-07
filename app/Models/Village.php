@@ -10,4 +10,9 @@ class Village extends Model
     {
     	return $this->belongsTo(\App\Models\District::class);
     }
+
+    public function dapil()
+    {
+    	return $this->hasOne(\App\Models\DapilMapping::class);
+    }
 }
