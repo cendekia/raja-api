@@ -15,4 +15,9 @@ class District extends Model
     {
     	return $query->where('city_id', '=', 64);
     }
+
+    public function villages()
+    {
+    	return $this->hasMany(\App\Models\Village::class);
+    }
 }
