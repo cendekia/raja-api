@@ -18,8 +18,28 @@ class VolunteerRegisterController extends Controller
     {
     	$input = $request->all();
     	$input['date_of_birth'] = date('Y-m-d', strtotime(str_replace('/', '-', $input['date_of_birth'])));
+
+        //upload images
+        if ($request->hasFile('photo_profile')) {
+            $image = $request->file('photo_profile');
+            $name = 'profile_'.rand().time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/contents');
+            $image->move($destinationPath, $name);
+            
+            $input['photo_profile'] = $name;
+        }
+
+        if ($request->hasFile('photo_id_card')) {
+            $image = $request->file('photo_id_card');
+            $name = 'ktp_'.rand().time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/contents');
+            $image->move($destinationPath, $name);
+            
+            $input['photo_id_card'] = $name;
+        }
+
     	$volunteer = Volunteer::create($input);
 
-    	dd($volunteer);
+    	return $this->respondFormatter(['data' => $volunteer]); 
     }
 }
