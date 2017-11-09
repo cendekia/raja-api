@@ -16,29 +16,48 @@ class VolunteerRegisterController extends Controller
 
     public function store(RegisterRequest $request)
     {
-    	$input = $request->all();
-    	$input['date_of_birth'] = date('Y-m-d', strtotime(str_replace('/', '-', $input['date_of_birth'])));
+        // 'village' => 'required',
+        // 'name' => 'required',
+        // 'dob' => 'required|date_format:d/m/Y',
+        // 'address' => 'required',
+        // 'idNumber' => 'required|unique:volunteers,id_card',
+        // 'phoneNumber' => 'required',
+        // 'waNumber' => 'required',
+        // 'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // 'photoKTP' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    	$request->dob = date('Y-m-d', strtotime(str_replace('/', '-', $request->dob)));
 
         //upload images
-        if ($request->hasFile('photo_profile')) {
-            $image = $request->file('photo_profile');
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
             $name = 'profile_'.rand().time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/contents');
             $image->move($destinationPath, $name);
             
-            $input['photo_profile'] = $name;
+            $request->photo = $name;
         }
 
-        if ($request->hasFile('photo_id_card')) {
-            $image = $request->file('photo_id_card');
+        if ($request->hasFile('photoKTP')) {
+            $image = $request->file('photoKTP');
             $name = 'ktp_'.rand().time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/contents');
             $image->move($destinationPath, $name);
             
-            $input['photo_id_card'] = $name;
+            $request->photoKTP = $name;
         }
 
-    	$volunteer = Volunteer::create($input);
+        // $volunteer = Volunteer::create($request);
+        $volunteer = new Volunteer;
+        $volunteer->village_id = $request->village;
+        $volunteer->name = $request->name;
+        $volunteer->date_of_birth = $request->dob;
+        $volunteer->address = $request->address;
+        $volunteer->id_card = $request->idNumber;
+        $volunteer->phone_number = $request->phoneNumber;
+        $volunteer->whatsapp_number = $request->waNumber;
+        $volunteer->photo_profile = $request->photo;
+    	$volunteer->photo_id_card = $request->photoKTP;
+        $volunteer->save();
 
     	return $this->respondFormatter(['data' => $volunteer]); 
     }

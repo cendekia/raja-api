@@ -24,15 +24,15 @@ class RegisterRequest extends JsonFormRequest
     public function rules()
     {
         return [
-            'village_id' => 'required',
+            'village' => 'required',
             'name' => 'required',
-            'date_of_birth' => 'required|date_format:d/m/Y',
+            'dob' => 'required|date_format:d/m/Y',
             'address' => 'required',
-            'id_card' => 'required|unique:volunteers,id_card',
-            'phone_number' => 'required',
-            'whatsapp_number' => 'required',
-            'photo_profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'photo_id_card' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'idNumber' => 'required|unique:volunteers,id_card',
+            'phoneNumber' => 'required',
+            'waNumber' => 'required',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photoKTP' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -41,15 +41,15 @@ class RegisterRequest extends JsonFormRequest
         return [
             'village_id.required' => 'Daerah pemilihan relawan wajib diisi',
             'name.required' => 'Nama relawan wajib diisi',
-            'date_of_birth.required' => 'Tanggal lahir relawan wajib diisi',
+            'dob.required' => 'Tanggal lahir relawan wajib diisi',
             'address.required' => 'Alamat relawan wajib diisi',
-            'id_card.required' => 'Nomor KTP relawan wajib diisi',
-            'phone_number.required' => 'Nomor telepon/HP relawan wajib diisi',
+            'idNumber.required' => 'Nomor KTP relawan wajib diisi',
+            'phoneNumber.required' => 'Nomor telepon/HP relawan wajib diisi',
             'whatsapp_number.required' => 'Nomor whatapps relawan wajib diisi',
             'status.required' => 'Status pendaftaran wajib diisi',
             
-            'date_of_birth.date_format' => 'Tanggal lahir harus menggunakan format tgl/bulan/tahun, misalnya 01/10/1970',
-            'id_card.unique' => 'Relawan dengan nomor KTP ini sudah pernah didaftarkan sebelumnya',
+            'dob.date_format' => 'Tanggal lahir harus menggunakan format tgl/bulan/tahun, misalnya 01/10/1970',
+            'idNumber.unique' => 'Relawan dengan nomor KTP ini sudah pernah didaftarkan sebelumnya',
         ];
     }
 }
