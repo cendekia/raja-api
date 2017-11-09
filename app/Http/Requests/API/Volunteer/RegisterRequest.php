@@ -31,8 +31,8 @@ class RegisterRequest extends JsonFormRequest
             'idNumber' => 'required|unique:volunteers,id_card',
             'phoneNumber' => 'required',
             'waNumber' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'photoKTP' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'photoKTP' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
