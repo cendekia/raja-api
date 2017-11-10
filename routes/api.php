@@ -20,4 +20,5 @@ Route::group(['middleware' => 'auth:api'], function(){
 	Route::get('villages', 'API\VillageController@index');
 	Route::get('details', 'API\UserController@details');
 	Route::resource('volunteer-register', 'API\VolunteerRegisterController');
+	Route::get('total-volunteer', 'API\VolunteerRegisterController@count');
 });

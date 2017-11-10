@@ -24,6 +24,13 @@ class VolunteerRegisterController extends Controller
     	return $this->respondFormatter($response);
     }
 
+    public function count()
+    {
+        $volunteers = Volunteer::whereStatus('member')->count();
+
+        return $this->respondFormatter(['total_volunteer' => $volunteers]);
+    }
+
     public function store(RegisterRequest $request)
     {
     	$request->dob = date('Y-m-d', strtotime(str_replace('/', '-', $request->dob)));
