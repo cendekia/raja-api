@@ -5,26 +5,27 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Volunteer\RegisterRequest;
 use App\Models\Volunteer;
+use App\Transformers\VolunteerListTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class VolunteerRegisterController extends Controller
 {
     public function index()
     {
-    	return 'foo';
+        $volunteers = Volunteer::whereStatus('member')->paginate(10);
+
+        $response = fractal()
+           ->collection($volunteers->getCollection())
+           ->transformWith(new VolunteerListTransformer())
+           ->paginateWith(new IlluminatePaginatorAdapter($volunteers))
+           ->toArray();;
+
+    	return $this->respondFormatter($response);
     }
 
     public function store(RegisterRequest $request)
     {
-        // 'village' => 'required',
-        // 'name' => 'required',
-        // 'dob' => 'required|date_format:d/m/Y',
-        // 'address' => 'required',
-        // 'idNumber' => 'required|unique:volunteers,id_card',
-        // 'phoneNumber' => 'required',
-        // 'waNumber' => 'required',
-        // 'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // 'photoKTP' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     	$request->dob = date('Y-m-d', strtotime(str_replace('/', '-', $request->dob)));
 
         //upload images
