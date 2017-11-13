@@ -13,7 +13,7 @@ class VolunteerRegisterController extends Controller
 {
     public function index()
     {
-        $volunteers = Volunteer::whereStatus('member')->paginate(10);
+        $volunteers = Volunteer::whereStatus('member')->orderBy('created_at', 'DESC')->paginate(10);
 
         $response = fractal()
            ->collection($volunteers->getCollection())
@@ -31,7 +31,7 @@ class VolunteerRegisterController extends Controller
         return $this->respondFormatter(['total_volunteer' => $volunteers]);
     }
 
-    public function store(RegisterRequest $request)
+    public function store(Request $request)
     {
     	$request->dob = date('Y-m-d', strtotime(str_replace('/', '-', $request->dob)));
 
